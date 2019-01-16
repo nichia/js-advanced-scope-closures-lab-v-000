@@ -1,19 +1,32 @@
 // produceDrivingRange() - Returns a function that then calculates whether a given trip is within range. For example, produceDrivingRange(10) returns a function that will return false if the trip is over 10 blocks distance and true if the distance is within range. So produceDrivingRange returns a function that we can then use to calculate if a trip is too large for a driver. We recommend referencing the test/indexTest.js for more details.
 function produceDrivingRange(blockRange) {
-  return function(rangeStart, rangeEnd) {
-    const rangeDiff = Number(rangeEnd.split('th')[0]) - Number(rangeStart.split('th')[0]);
-    const checkRange = blockRange - Math.abs(rangeDiff);
-    if (checkRange < 0) {
-      return `${Math.abs(checkRange)} blocks out of range`; } else {
-        return `within range by ${checkRange}`;
-      };
+  return function(startingBlock, endingBlock) {
+    // let start = parseInt( startingBlock );
+    // let end = parseInt( endingBlock );
+    // let distanceToTravel = Math.abs( end - start );
+    // let difference = blockRange - distanceToTravel;
+    //
+    // if ( difference > 0 ) {
+    //   return `within range by ${difference}`
+    // } else {
+    //   return `${Math.abs(difference)} blocks out of range`
+    // }
+    const end = Number(endingBlock.split('th')[0]);
+    const start = Number(startingBlock.split('th')[0]);
+    const rangeDiff = end - start;
+    const difference = blockRange - Math.abs(rangeDiff);
+    if (difference < 0) {
+      return `${Math.abs(difference)} blocks out of range`;
+    } else {
+      return `within range by ${difference}`;
+    };
   };
 };
 
 // produceTipCalculator() - Returns a function that then calculates a tip. For example, produceTipCalculator(.10) returns a function that calculates ten percent tip on a fare. produceTipCalculator(.20) returns a function that calculates twenty percent tip on a fare.
-function produceTipCalculator(percent) {
+function produceTipCalculator(percentage) {
   return function(fare) {
-    return fare * percent;
+    return fare * percentage;
   };
 };
 
@@ -24,7 +37,6 @@ function createDriver() {
     constructor(name) {
       this.name = name;
       this.id = ++DriverId;
-    }
-    
-  }
+    };
+  };
 }
